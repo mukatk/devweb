@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
       <v-layout flex align-center justify-center>
-        <v-flex xs12 sm4>
+        <v-flex xs12 sm4> 
             <v-card class="white">
                 <v-card-text class="white--text text-xs-center">
                     <v-avatar size="120px">
