@@ -2,7 +2,7 @@
   "name": "saveapp",
   "version": "1.0.0",
   "description": "Projeto para desenvolvimento web",
-  "author": "Ayres Flesch, Joice Gomes e Samuel Carvalho Locatelli",
+  "author": "Ayres Flesch, Joice Gomes e Samuel Locatelli",
   "private": true,
   "scripts": {
     "dev": "node build/dev-server.js",
@@ -12,7 +12,8 @@
   "dependencies": {
     "vuetify": "^1.0.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-router": "^3.0.1",
+    "express": "^4.16.2"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.5",
@@ -30,7 +31,6 @@
     "css-loader": "^0.28.7",
     "cssnano": "^3.10.0",
     "eventsource-polyfill": "^0.9.6",
-    "express": "^4.16.2",
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.5",
     "friendly-errors-webpack-plugin": "^1.6.1",

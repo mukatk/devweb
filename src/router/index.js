@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
+import Index from '@/components/Index'
+import Cadastro from '@/components/Cadastro'
 
 Vue.use(Router)
 
@@ -8,8 +9,14 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: HelloWorld
+      name: 'Index',
+      component: Index
+    },
+    {
+      path: '/Cadastro',
+      name: 'Cadastro',
+      component: Cadastro
     }
-  ]
+  ],
+  mode: 'history'
 })

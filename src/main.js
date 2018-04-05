@@ -13,11 +13,17 @@ import {
   VIcon,
   VGrid,
   VToolbar,
-  transitions
+  transitions,
+  VCard,
+  VAvatar
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
 Vue.use(Vuetify, {
+  theme: {
+    primary: '#ff9800',
+    secondary: '#757575'
+  },
   components: {
     VApp,
     VNavigationDrawer,
@@ -27,7 +33,9 @@ Vue.use(Vuetify, {
     VIcon,
     VGrid,
     VToolbar,
-    transitions
+    transitions,
+    VCard,
+    VAvatar
   }
 })
 
