@@ -4,10 +4,11 @@ import Index from '@/components/Index'
 import Cadastro from '@/components/Cadastro'
 import Landing from '@/components/Landing'
 import Login from '@/components/Login'
+import auth from '@/router/auth'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: '/',
@@ -31,4 +32,10 @@ export default new Router({
     }
   ],
   mode: 'history'
+});
+
+router.beforeEach((to, from, next) => {
+  auth(to, from, next);
 })
+
+export default router
