@@ -5,9 +5,9 @@
             <v-card class="white">
                 <v-card-text class="white--text text-xs-center">
                     <v-avatar size="120px">
-                        <img :src="imgAvatar" alt="avatar">
+                        <img :src="usuariologado.imgAvatar" alt="avatar">
                     </v-avatar>
-                    <h3 class="nome-usuario mt-3">{{ nome }}</h3>
+                    <h3 class="nome-usuario mt-3">{{ usuariologado.nome }}</h3>
                 </v-card-text>
                 <v-card-actions>
                     <v-btn @click="efetuarLogout" flat color="primary">Logout</v-btn>
@@ -23,14 +23,10 @@
 <script>
 export default {
     name: 'Landing',
-    data: () => {
-      return {
-          nome: 'Joice Cazanoski Gomes',
-          imgAvatar: 'https://instagram.fpoa9-2.fna.fbcdn.net/vp/871b91a175c433517175462e7534e578/5B65381F/t51.2885-19/s320x320/29093239_2041143672840525_1199620164325212160_n.jpg'
-      }
-    },
-    beforeRouteEnter (to, from, next) {
-        
+    computed: {
+        usuariologado: function () {
+            return JSON.parse(sessionStorage.getItem('usuariologado'));
+        }
     },
     methods: {
         efetuarLogout: function () {
