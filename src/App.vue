@@ -13,6 +13,10 @@ export default {
 </script>
 
 <style scoped>
+#app {
+    background: #0646a6;
+}
+
 .fade-enter-active, .fade-leave-active {
   transition: opacity .5s;
 }
