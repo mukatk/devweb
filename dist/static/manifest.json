@@ -15,11 +15,6 @@
   ],
   "start_url": "/",
   "display": "fullscreen",
-<<<<<<< HEAD
-  "background_color": "#0646a6",
-  "theme_color": "#0646a6"
-=======
   "background_color": "#000000",
   "theme_color": "#4DBA87"
->>>>>>> dcc032332dec2f74b4b2f46260a074b8ec8ecab3
 }
