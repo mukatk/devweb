@@ -12,7 +12,7 @@
                 <v-card-actions>
                     <v-btn @click="efetuarLogout" flat color="primary">Logout</v-btn>
                     <v-spacer></v-spacer>
-                    <v-btn color="primary">Continuar</v-btn>
+                    <v-btn to="/Dashboard" color="primary">Continuar</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
