@@ -11,7 +11,7 @@ export default {
   name: 'Index',
   mounted: function () {
       const self = this;
-      const usuarioLogado = localStorage.getItem("usuariologado");
+      const usuarioLogado = sessionStorage.getItem("usuariologado");
 
       setTimeout(function () {
           self.$router.push(usuarioLogado ? '/Landing' : '/Login');
