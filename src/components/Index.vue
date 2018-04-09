@@ -11,8 +11,10 @@ export default {
   name: 'Index',
   mounted: function () {
       const self = this;
+      const usuarioLogado = localStorage.getItem("usuariologado");
+
       setTimeout(function () {
-          self.$router.push('/Landing');
+          self.$router.push(usuarioLogado ? '/Landing' : '/Login');
       }, 5000);
   }
 }

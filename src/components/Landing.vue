@@ -1,7 +1,7 @@
 <template>
   <v-container fluid fill-height>
       <v-layout flex align-center justify-center>
-        <v-flex xs12 sm4 lg2> 
+        <v-flex xs12 sm4> 
             <v-card class="white">
                 <v-card-text class="white--text text-xs-center">
                     <v-avatar size="120px">
@@ -10,9 +10,9 @@
                     <h3 class="nome-usuario mt-3">{{ nome }}</h3>
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn flat color="primary">Continuar</v-btn>
-                    <v-spacer></v-spacer>
                     <v-btn flat color="primary">Logout</v-btn>
+                    <v-spacer></v-spacer>
+                    <v-btn color="primary">Continuar</v-btn>
                 </v-card-actions>
             </v-card>
         </v-flex>
