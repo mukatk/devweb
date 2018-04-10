@@ -15,7 +15,8 @@ import {
   VToolbar,
   transitions,
   VCard,
-  VAvatar
+  VAvatar,
+  VTextField
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -35,7 +36,8 @@ Vue.use(Vuetify, {
     VToolbar,
     transitions,
     VCard,
-    VAvatar
+    VAvatar,
+    VTextField
   }
 })
 
