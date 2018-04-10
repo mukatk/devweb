@@ -1,8 +1,12 @@
 <template>
   <v-app>
-    <transition appear mode="out-in" name="fade">
-      <router-view />
-    </transition>
+    <v-container fluid fill-height>
+      <v-layout flex align-center justify-center>
+        <transition appear mode="out-in" name="fade">
+          <router-view />
+        </transition>
+      </v-layout>
+    </v-container>
   </v-app>
 </template>
 

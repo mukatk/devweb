@@ -1,9 +1,5 @@
 <template>
-    <v-container fluid fill-height>
-      <v-layout flex align-center justify-center>
-          <img src="/static/img/icons/android-chrome-192x192.png" alt="logo" />
-      </v-layout>
-    </v-container>
+    <img src="/static/img/icons/android-chrome-192x192.png" alt="logo" />
 </template>
 
 <script>
