@@ -16,7 +16,8 @@ import {
   transitions,
   VCard,
   VAvatar,
-  VTextField
+  VTextField,
+  VSelect
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -37,7 +38,8 @@ Vue.use(Vuetify, {
     transitions,
     VCard,
     VAvatar,
-    VTextField
+    VTextField,
+    VSelect
   }
 })
 
