@@ -1,5 +1,7 @@
 <template>
-    <img src="/static/img/icons/android-chrome-192x192.png" alt="logo" />
+    <v-layout flex align-center justify-center>
+        <img src="/static/img/icons/android-chrome-192x192.png" alt="logo" />
+    </v-layout>
 </template>
 
 <script>
