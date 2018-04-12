@@ -4,7 +4,7 @@
             <v-card class="white">
                 <v-card-text class="white--text text-xs-center">
                     <v-avatar size="120px">
-                        <img :src="usuariologado.imgAvatar" alt="avatar">
+                        <img :src="usuariologado.avatar" alt="avatar">
                     </v-avatar>
                     <h3 class="nome-usuario mt-3">{{ usuariologado.nome }}</h3>
                 </v-card-text>

@@ -3,6 +3,7 @@
     <v-flex xs12 md5>
       <h1 class="titulo">Cadastro</h1>
       <v-form ref="form">
+        <v-spacer class="mb-2"></v-spacer>
         <v-layout row justify-center>
           <v-flex xs12 text-xs-center>
             <v-tooltip bottom>
@@ -34,7 +35,7 @@
             </v-dialog>
           </v-flex>
         </v-layout>
-        <v-text-field dark label="Nome" v-model="usuario.nome" required></v-text-field>
+        <v-spacer class="mt-2"></v-spacer>
         <v-text-field dark label="E-mail" v-model="usuario.email" required></v-text-field>
         <v-text-field dark label="Senha" 
           :type="!verSenha ? 'password' : 'text'" 
@@ -43,6 +44,7 @@
           :append-icon-cb="() => (verSenha = !verSenha)" 
           required>
         </v-text-field>
+        <v-text-field dark label="Nome" v-model="usuario.nome" required></v-text-field>
         <v-text-field dark label="Renda"
           v-model.number="usuario.renda"
           required>
@@ -56,13 +58,17 @@
         </v-select>
         <v-select dark :items="lstCidades"
           :disabled="lstCidades.length == 0"
-          :loading="lstEstados.length == 0"
+          :loading="lstCidades.length == 0"
+          v-if="usuario.estado > 0"
           label="Cidade"
           v-model="usuario.cidade"
           autocomplete
           item-value="id"
           item-text="texto">
         </v-select>
+        <v-spacer class="mt-2"></v-spacer>
+        <v-btn flat color="primary">Cancelar</v-btn>
+        <v-btn class="right" @click="salvarUsuario" color="primary">Salvar</v-btn>
       </v-form>
     </v-flex>
   </v-layout>
@@ -108,6 +114,9 @@ export default {
       this.urlImagemModal = '';
       this.modalImagem = false;
     },
+    carregaUsuario: function () {
+      this.usuario = JSON.parse(sessionStorage.getItem('usuariologado'));
+    },
     carregaCidades: function (idEstado) {
       const self = this;
       axios.get(`https://servicodados.ibge.gov.br/api/v1/localidades/estados/${idEstado}/municipios`).then((response) => {
@@ -129,6 +138,16 @@ export default {
           }
         }).sort((a, b) => { return a.texto.localeCompare(b.texto); });
       });
+    },
+    salvarUsuario: function() {
+      const self = this;
+      const jsonUser = JSON.stringify(self.usuario);
+
+      localStorage.setItem(self.usuario.email, jsonUser);
+
+      sessionStorage.setItem('usuariologado', jsonUser);
+
+      self.$router.push('/Dashboard');
     }
   }
 }
@@ -153,6 +172,7 @@ export default {
 
 .visible_off {
   visibility: hidden;
+  transition: visibility .5s;
 }
 </style>
 
