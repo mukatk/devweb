@@ -17,7 +17,10 @@ import {
   VCard,
   VAvatar,
   VTextField,
-  VSelect
+  VSelect,
+  VForm,
+  VTooltip,
+  VDialog
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -39,7 +42,10 @@ Vue.use(Vuetify, {
     VCard,
     VAvatar,
     VTextField,
-    VSelect
+    VSelect,
+    VForm,
+    VTooltip,
+    VDialog
   }
 })
 
