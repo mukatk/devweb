@@ -2,7 +2,7 @@
   <v-layout row justify-center>
     <v-flex xs12 md5>
       <h1 class="titulo">Cadastro</h1>
-      <v-form ref="form">
+      <v-form ref="form" v-model="formularioValido">
         <v-spacer class="mb-2"></v-spacer>
         <v-layout row justify-center>
           <v-flex xs12 text-xs-center>
@@ -36,17 +36,28 @@
           </v-flex>
         </v-layout>
         <v-spacer class="mt-2"></v-spacer>
-        <v-text-field dark label="E-mail" v-model="usuario.email" required></v-text-field>
+        <v-text-field dark label="E-mail" 
+          v-model="usuario.email"
+          :rules="regras.email" 
+          required>
+        </v-text-field>
         <v-text-field dark label="Senha" 
           :type="!verSenha ? 'password' : 'text'" 
           v-model="usuario.senha"
           :append-icon="!verSenha ? 'visibility' : 'visibility_off'"
-          :append-icon-cb="() => (verSenha = !verSenha)" 
+          :append-icon-cb="() => (verSenha = !verSenha)"
+          :rules="regras.senha" 
           required>
         </v-text-field>
-        <v-text-field dark label="Nome" v-model="usuario.nome" required></v-text-field>
+        <v-text-field dark label="Nome"
+          :counter="100" 
+          v-model="usuario.nome" 
+          :rules="regras.nome"
+          required>
+        </v-text-field>
         <v-text-field dark label="Renda"
           v-model.number="usuario.renda"
+          :rules="regras.renda"
           required>
         </v-text-field>
         <v-select dark :items="lstEstados"
@@ -68,7 +79,7 @@
         </v-select>
         <v-spacer class="mt-2"></v-spacer>
         <v-btn flat color="primary">Cancelar</v-btn>
-        <v-btn class="right" @click="salvarUsuario" color="primary">Salvar</v-btn>
+        <v-btn class="right" :disabled="!formularioValido" @click="salvarUsuario" color="primary">Salvar</v-btn>
       </v-form>
     </v-flex>
   </v-layout>
@@ -81,12 +92,29 @@ export default {
   name: 'Cadastro',
   data: () => {
     return {
+      formularioValido: false,
       imagemValida: false,
       urlImagemModal: '',
       modalImagem: false,
       verSenha: false,
       lstEstados: [],
       lstCidades: [],
+      regras: {
+        nome: [
+          v => !!v || 'Você não pode deixar este campo em branco',
+          v => v.length <= 100 || 'O nome pode ter no máximo 100 caracteres'
+        ],
+        senha: [
+          v => !!v || 'Você não pode deixar este campo em branco',
+        ],
+        email: [
+          v => !!v || 'Você não pode deixar este campo em branco',
+          v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Este formato de e-mail não é válido'
+        ],
+        renda: [
+          v => !!v || 'Você não pode deixar este campo em branco'
+        ]
+      },
       usuario: {
         nome: '',
         email: '',
