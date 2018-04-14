@@ -60,6 +60,7 @@
           ref="renda"
           v-model.lazy="rendaFormatada"
           :rules="regras.renda" v-money="money"
+          validate-on-blur
           required>
         </v-text-field>
         <v-select dark :items="lstEstados"
@@ -120,7 +121,7 @@ export default {
           v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Este formato de e-mail não é válido'
         ],
         renda: [
-          v => !!v || 'Você não pode deixar este campo em branco'
+          v => v != 'R$ 0,00' || 'Você precisa informar uma renda válida'
         ]
       },
       usuario: {
@@ -149,7 +150,7 @@ export default {
     },
     rendaFormatada: function (val) {
       if (val && typeof val == 'string') {
-        this.usuario.renda = parseFloat(val.replace('R$ ', '').replace(/(\.)/g, '').replace(',', '.'));
+        this.usuario.renda = this.formataRenda();
       }
     }
   },
@@ -158,6 +159,9 @@ export default {
     this.carregaUsuario();
   },
   methods: {
+    formataRenda: function (val) {
+      return parseFloat(val.replace('R$ ', '').replace(/(\.)/g, '').replace(',', '.'));
+    },
     trocaFoto: function () {
       this.usuario.avatar = this.urlImagemModal;
       this.urlImagemModal = '';
