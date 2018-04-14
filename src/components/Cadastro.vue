@@ -38,7 +38,8 @@
         <v-spacer class="mt-2"></v-spacer>
         <v-text-field dark label="E-mail" 
           v-model="usuario.email"
-          :rules="regras.email" 
+          :rules="regras.email"
+          :disabled="editando" 
           required>
         </v-text-field>
         <v-text-field dark label="Senha" 
@@ -56,8 +57,9 @@
           required>
         </v-text-field>
         <v-text-field dark label="Renda"
-          v-model.number="usuario.renda"
-          :rules="regras.renda"
+          ref="renda"
+          v-model.lazy="rendaFormatada"
+          :rules="regras.renda" v-money="money"
           required>
         </v-text-field>
         <v-select dark :items="lstEstados"
@@ -87,11 +89,16 @@
 
 <script>
 import axios from 'axios'
+import {VMoney} from 'v-money'
 
 export default {
   name: 'Cadastro',
+  directives: {
+    money: VMoney
+  },
   data: () => {
     return {
+      editando: false,
       formularioValido: false,
       imagemValida: false,
       urlImagemModal: '',
@@ -99,6 +106,7 @@ export default {
       verSenha: false,
       lstEstados: [],
       lstCidades: [],
+      rendaFormatada: 0.0,
       regras: {
         nome: [
           v => !!v || 'Você não pode deixar este campo em branco',
@@ -123,7 +131,14 @@ export default {
         cidade: '',
         estado: '',
         avatar: ''
-      }
+      },
+      money: {
+          decimal: ',',
+          thousands: '.',
+          prefix: 'R$ ',
+          precision: 2,
+          masked: false /* doesn't work with directive */
+        }
     }
   },
   watch: {
@@ -131,10 +146,16 @@ export default {
       if (val) {
         this.carregaCidades(val);
       }
+    },
+    rendaFormatada: function (val) {
+      if (val && typeof val == 'string') {
+        this.usuario.renda = parseFloat(val.replace('R$ ', '').replace(/(\.)/g, '').replace(',', '.'));
+      }
     }
   },
   mounted: function () {
     this.carregaEstados();
+    this.carregaUsuario();
   },
   methods: {
     trocaFoto: function () {
@@ -143,7 +164,14 @@ export default {
       this.modalImagem = false;
     },
     carregaUsuario: function () {
-      this.usuario = JSON.parse(sessionStorage.getItem('usuariologado'));
+      const usuariologado = JSON.parse(sessionStorage.getItem('usuariologado'));
+      
+      if (usuariologado) {
+        this.usuario = usuariologado;
+        this.$refs.renda.$el.getElementsByTagName('input')[0].value = usuariologado.renda * 100; //Tratativa para bug do componente
+        this.rendaFormatada = usuariologado.renda;
+        this.editando = true;
+      }
     },
     carregaCidades: function (idEstado) {
       const self = this;
