@@ -150,7 +150,7 @@ export default {
     },
     rendaFormatada: function (val) {
       if (val && typeof val == 'string') {
-        this.usuario.renda = this.formataRenda();
+        this.usuario.renda = this.formataRenda(val);
       }
     }
   },
