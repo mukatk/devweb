@@ -39,6 +39,6 @@ export default {
         navigateTo: function(nav){
              this.$router.push(nav);
         }
-    
+    }
 }
 </script>

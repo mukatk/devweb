@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-container fluid fill-height>
+    <v-container fluid :fill-height="fillheight">
       <transition appear mode="out-in" name="fade">
         <router-view />
       </transition>
@@ -10,7 +10,13 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  computed: {
+    fillheight: function () {
+      const rota = this.$route.path;
+      return rota == '/' || rota == '/Login' || rota == '/Landing';
+    }
+  }
 }
 </script>
 

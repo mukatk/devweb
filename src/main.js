@@ -20,7 +20,9 @@ import {
   VSelect,
   VForm,
   VTooltip,
-  VDialog
+  VDialog,
+  VTabs,
+  VBadge
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
@@ -45,7 +47,9 @@ Vue.use(Vuetify, {
     VSelect,
     VForm,
     VTooltip,
-    VDialog
+    VDialog,
+    VTabs,
+    VBadge
   }
 })
 
