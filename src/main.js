@@ -6,8 +6,6 @@ import router from './router'
 import {
   Vuetify,
   VApp,
-  VNavigationDrawer,
-  VFooter,
   VList,
   VBtn,
   VIcon,
@@ -22,19 +20,18 @@ import {
   VTooltip,
   VDialog,
   VTabs,
-  VBadge
+  VBadge,
+  VDataTable
 } from 'vuetify'
 import '../node_modules/vuetify/src/stylus/app.styl'
 
 Vue.use(Vuetify, {
   theme: {
-    primary: '#ff9800',
-    secondary: '#757575'
+    primary: '#ff5722',
+    secondary: '#BDBDBD'
   },
   components: {
     VApp,
-    VNavigationDrawer,
-    VFooter,
     VList,
     VBtn,
     VIcon,
@@ -49,7 +46,8 @@ Vue.use(Vuetify, {
     VTooltip,
     VDialog,
     VTabs,
-    VBadge
+    VBadge,
+    VDataTable
   }
 })
 
