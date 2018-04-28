@@ -1,12 +1,6 @@
 <template>
   <v-layout row justify-center>
     <v-flex xs12>
-      <v-card class="white">
-        <v-card-text>                   
-            <h1>Vai ter um gráfico bem show aqui</h1>             
-        </v-card-text>
-      </v-card>
-      <v-spacer class="mt-2"></v-spacer>
       <v-tabs color="grey darken-1" grow show-arrows slider-color="primary" v-model="mesSelecionado">
         <v-tab class="white--text" v-for="item in meses" :key="item.mes" ripple>{{item.mes.substring(0, 3)}}</v-tab>
         <v-tab-item lazy v-for="(item, index) in meses" :key="item.mes">
@@ -31,6 +25,17 @@
           </v-card>
         </v-tab-item>
       </v-tabs>
+      <v-spacer class="mt-2"></v-spacer>
+      <v-card>
+        <v-card-title>Gasto mensal</v-card-title>
+        <v-card-text>
+          <v-layout row wrap>                   
+            <v-flex xs12 sm6 offset-sm3>
+              <dashboard-chart ref="grafico" :data="[]" :width="200" :height="100" ></dashboard-chart>   
+            </v-flex>
+          </v-layout>
+        </v-card-text>
+      </v-card>
     </v-flex>
     <v-dialog v-model="modalDespesa" persistent max-width="500px">
       <v-card>
@@ -85,9 +90,13 @@
 
 <script>
 import {VMoney} from 'v-money'
+import DashboardChart from '@/components/DashboardChart'
 
 export default {
   name: 'Dashboard',
+  components: {
+    DashboardChart
+  },
   directives: {
     money: VMoney
   },
@@ -209,7 +218,7 @@ export default {
       let despesaStorage = JSON.parse(localStorage.getItem(`despesas-${self.usuariologado.email}-${mes}`));
 
       if (despesaStorage)
-        self.meses[mes].despesas = despesaStorage;
+        self.$refs.grafico.data = self.meses[mes].despesas = despesaStorage;
     },
     limpaModalDespesa: function () {
       const self = this;
