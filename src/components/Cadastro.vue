@@ -60,7 +60,7 @@
           ref="renda"
           v-model.lazy="rendaFormatada"
           :rules="regras.renda" v-money="money"
-          validate-on-blur
+          :validate-on-blur="!editando"
           required>
         </v-text-field>
         <v-select dark :items="lstEstados"
@@ -139,7 +139,7 @@ export default {
           prefix: 'R$ ',
           precision: 2,
           masked: false /* doesn't work with directive */
-        }
+      }
     }
   },
   watch: {
