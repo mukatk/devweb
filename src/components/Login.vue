@@ -3,13 +3,14 @@
         <v-flex xs12 sm4> 
             <h1 class="titulo">Login</h1>            
                 <v-card-text>                   
-                    <v-text-field dark label="E-mail:" 
+                    <v-text-field dark label="E-mail:"
+                        v-model="usuario.email" 
                         :rules="regras.email"
                         required>
                     </v-text-field>
                     <v-text-field dark label="Senha:"   
                         :type="!verSenha ? 'password' : 'text'"                      
-                        v-model="senha"            
+                        v-model="usuario.senha"            
                         :append-icon="!verSenha ? 'visibility' : 'visibility_off'"
                         :append-icon-cb="() => (verSenha = !verSenha)"
                         :rules="regras.senha"           
@@ -40,8 +41,7 @@ export default {
           regras: {
             email: [
                 v => !!v || 'Você não pode deixar este campo em branco',
-                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail inválido',
-                v => verificaUser===false || 'E-mail ou senha incorretos'
+                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail inválido'
               ],
              senha: [
                 v => !!v || 'Você não pode deixar este campo em branco'
@@ -64,13 +64,17 @@ export default {
         },
 
         verificaUser: function() {
-            if (localStorage.getItem(email) === ""){
-                return false;
-            }
+            const self = this;
+            const usuarioStorage = JSON.parse(localStorage.getItem(self.usuario.email));
 
-            else {
-                return true;
-            }
+            if (usuarioStorage) {
+                if(usuarioStorage.senha == self.usuario.senha)
+                    self.usuarioLogado();
+                else
+                    alert('Senha incorreta');
+            }  
+            else
+                alert('Usuário não encontrado')
         }    
 
     },     
