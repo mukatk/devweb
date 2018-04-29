@@ -1,24 +1,27 @@
 <template>
     <v-layout flex align-center justify-center>
         <v-flex xs12 sm4> 
-            <h1 class="titulo">Login</h1>
-            <v-card class="white">
+            <h1 class="titulo">Login</h1>            
                 <v-card-text>                   
-                    <v-text-field dark label="Login:" v-model="usuario.login" required></v-text-field>
-                    <v-text-field dark label="Senha:" 
-                    :type="!verSenha ? 'password' : 'text'"
-                    v-model="usuario.senha"
-                    :append-icon="!verSenha ? 'visibility' : 'visibility_off'"
-                    :append-icon-cb="() => (verSenha = !verSenha)" 
-                    required>
+                    <v-text-field dark label="E-mail:" 
+                        :rules="regras.email"
+                        required>
+                    </v-text-field>
+                    <v-text-field dark label="Senha:"   
+                        :type="!verSenha ? 'password' : 'text'"                      
+                        v-model="senha"            
+                        :append-icon="!verSenha ? 'visibility' : 'visibility_off'"
+                        :append-icon-cb="() => (verSenha = !verSenha)"
+                        :rules="regras.senha"           
+                        required>                  
                     </v-text-field>                   
                 </v-card-text>
                 <v-card-actions>
-                    <v-btn @click="navigateTo('/Cadastro')" flat color="primary">Criar conta</v-btn>                    
+                    <v-btn @click="cadastro" flat color="primary">Criar conta</v-btn>                    
                     <v-spacer></v-spacer>
-                    <v-btn color="primary">Próxima</v-btn>
+                    <v-btn @click="verificaUser" color="primary">Próxima</v-btn>
                 </v-card-actions>
-            </v-card>
+           
         </v-flex>
     </v-layout>
 </template>
@@ -28,17 +31,62 @@ export default {
     name: 'Login',
     data: () => {
       return {
-          login: '',
-          senha: ''
+          usuario:{
+            email: '',
+            senha: ''
+          },
+
+          verSenha: false,
+          regras: {
+            email: [
+                v => !!v || 'Você não pode deixar este campo em branco',
+                v => /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(v) || 'Formato de e-mail inválido',
+                v => verificaUser===false || 'E-mail ou senha incorretos'
+              ],
+             senha: [
+                v => !!v || 'Você não pode deixar este campo em branco'
+             ]
+          },          
       }
-    },
-    created: function(){
-        this.navigateTo();
-    },
+    },    
+
     methods: {
-        navigateTo: function(nav){
-             this.$router.push(nav);
-        }
-    }
+        cadastro: function(){
+            const self = this;
+            self.$router.push('/Cadastro');
+        },
+
+        usuarioLogado: function() {
+            const self = this;
+            const jsonUser = JSON.stringify(self.usuario);           
+            sessionStorage.setItem('usuariologado', jsonUser);
+            self.$router.push('/Dashboard');
+        },
+
+        verificaUser: function() {
+            if (localStorage.getItem(email) === ""){
+                return false;
+            }
+
+            else {
+                return true;
+            }
+        }    
+
+    },     
 }
 </script>
+<style scoped>
+.titulo {
+  color: #ff9800;
+}
+
+.pointer {
+  cursor: pointer;
+}
+
+.visible_off {
+  visibility: hidden;
+  transition: visibility .5s;
+}
+</style>
