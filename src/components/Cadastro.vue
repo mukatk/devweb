@@ -205,7 +205,7 @@ export default {
       .then(() => {
         axios.get(`https://ws-save-app.herokuapp.com/login?email=${self.usuario.email}&senha=${self.usuario.senha}`)
         .then((response) => {
-          localStorage.setItem('usuariologado', JSON.stringify(response.data));
+          sessionStorage.setItem('usuariologado', JSON.stringify(response.data));
           self.$router.push('/Dashboard');
         });
       });

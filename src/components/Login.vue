@@ -62,7 +62,7 @@ export default {
             axios.get(`https://ws-save-app.herokuapp.com/login?email=${self.usuario.email}&senha=${self.usuario.senha}`)
             .then((response) => {
                 if (response.data) {
-                    localStorage.setItem('usuariologado', JSON.stringify(response.data));
+                    sessionStorage.setItem('usuariologado', JSON.stringify(response.data));
                     self.$router.push('/Dashboard');
                 } else {
                     alert('Login incorreto');
