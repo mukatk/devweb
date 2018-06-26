@@ -216,7 +216,7 @@ export default {
     carregaGastos: function (mes) {
       const self = this;
 
-      axios.get(`http://ws-save-app.herokuapp.com/despesa?usuario=${self.usuariologado.id}&mes=${self.meses[mes].mes.substring(0, 3).toUpperCase()}`)
+      axios.get(`https://ws-save-app.herokuapp.com/despesa?usuario=${self.usuariologado.id}&mes=${self.meses[mes].mes.substring(0, 3).toUpperCase()}`)
       .then((response) => {
         if (response.data.length > 0) {
           self.$refs.grafico.data = self.meses[mes].despesas = response.data.map((x) => { return {
@@ -246,7 +246,7 @@ export default {
 
       self.meses[self.mesSelecionado].despesas.push(self.despesaModel);
       
-      axios.post('http://ws-save-app.herokuapp.com/despesa', {
+      axios.post('https://ws-save-app.herokuapp.com/despesa', {
         mes: self.meses[self.mesSelecionado].mes.substring(0, 3).toUpperCase(),
         descricao: self.despesaModel.descricao,
         valor: self.despesaModel.valor,

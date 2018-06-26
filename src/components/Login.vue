@@ -59,7 +59,7 @@ export default {
         },
         verificaUser: function() {
             const self = this;
-            axios.get(`http://ws-save-app.herokuapp.com/usuario?email=${self.usuario.email}&senha=${self.usuario.senha}`)
+            axios.get(`https://ws-save-app.herokuapp.com/login?email=${self.usuario.email}&senha=${self.usuario.senha}`)
             .then((response) => {
                 if (response.data) {
                     localStorage.setItem('usuariologado', JSON.stringify(response.data));

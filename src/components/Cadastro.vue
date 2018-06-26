@@ -201,9 +201,9 @@ export default {
     },
     salvarUsuario: function() {
       const self = this;
-      axios.post('http://ws-save-app.herokuapp.com/usuario', self.usuario)
+      axios.post('https://ws-save-app.herokuapp.com/usuario', self.usuario)
       .then(() => {
-        axios.get(`http://ws-save-app.herokuapp.com/usuario?email=${self.usuario.email}&senha=${self.usuario.senha}`)
+        axios.get(`https://ws-save-app.herokuapp.com/login?email=${self.usuario.email}&senha=${self.usuario.senha}`)
         .then((response) => {
           localStorage.setItem('usuariologado', JSON.stringify(response.data));
           self.$router.push('/Dashboard');
