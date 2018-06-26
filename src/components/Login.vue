@@ -55,26 +55,17 @@ export default {
             const self = this;
             self.$router.push('/Cadastro');
         },
-
-        usuarioLogado: function() {
-            const self = this;
-            const jsonUser = JSON.stringify(self.usuario);           
-            sessionStorage.setItem('usuariologado', jsonUser);
-            self.$router.push('/Dashboard');
-        },
-
         verificaUser: function() {
             const self = this;
-            const usuarioStorage = JSON.parse(localStorage.getItem(self.usuario.email));
-
-            if (usuarioStorage) {
-                if(usuarioStorage.senha == self.usuario.senha)
-                    self.usuarioLogado();
-                else
-                    alert('Senha incorreta');
-            }  
-            else
-                alert('Usuário não encontrado')
+            axios.get(`http://ws-save-app.herokuapp.com/usuario?email=${self.usuario.email}&senha=${self.usuario.senha}`)
+            .then((response) => {
+                if (response.data) {
+                    localStorage.setItem('usuariologado', JSON.stringify(response.data));
+                    self.$router.push('/Dashboard');
+                } else {
+                    alert('Login incorreto');
+                }
+            });
         }    
 
     },     

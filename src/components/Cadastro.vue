@@ -67,7 +67,7 @@
           :loading="lstEstados.length == 0"
           label="Estado"
           v-model="usuario.estado"        
-          item-value="id"
+          item-value="texto"
           item-text="texto">
         </v-select>
         <v-select dark :items="lstCidades"
@@ -77,7 +77,7 @@
           label="Cidade"
           v-model="usuario.cidade"
           autocomplete
-          item-value="id"
+          item-value="texo"
           item-text="texto">
         </v-select>
         <v-spacer class="mt-2"></v-spacer>
@@ -201,13 +201,14 @@ export default {
     },
     salvarUsuario: function() {
       const self = this;
-      const jsonUser = JSON.stringify(self.usuario);
-
-      localStorage.setItem(self.usuario.email, jsonUser);
-
-      sessionStorage.setItem('usuariologado', jsonUser);
-
-      self.$router.push('/Dashboard');
+      axios.post('http://ws-save-app.herokuapp.com/usuario', self.usuario)
+      .then(() => {
+        axios.get(`http://ws-save-app.herokuapp.com/usuario?email=${self.usuario.email}&senha=${self.usuario.senha}`)
+        .then((response) => {
+          localStorage.setItem('usuariologado', JSON.stringify(response.data));
+          self.$router.push('/Dashboard');
+        });
+      });
     }
   }
 }

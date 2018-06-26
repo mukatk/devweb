@@ -91,6 +91,7 @@
 <script>
 import {VMoney} from 'v-money'
 import DashboardChart from '@/components/DashboardChart'
+import axios from 'axios'
 
 export default {
   name: 'Dashboard',
@@ -158,7 +159,7 @@ export default {
       despesaModel: {
         descricao: '',
         valor: 0.0,
-        idTipoGasto: 0
+        idTipoGasto: ''
       },
       money: {
           decimal: ',',
@@ -169,23 +170,23 @@ export default {
       },
       lstTipoGasto: [
         {
-          id: 1,
+          id: 'REFEICAO',
           descricao: 'Refeição'
         },
         {
-          id: 2,
+          id: 'LAZER',
           descricao: 'Lazer'
         },
         {
-          id: 3,
+          id: 'CONTA',
           descricao: 'Conta'
         },
         {
-          id: 4,
+          id: 'MERCADO',
           descricao: 'Mercado'
         },
         {
-          id: 5,
+          id: 'OUTROS',
           descricao: 'Outros'
         }
       ]
@@ -200,13 +201,13 @@ export default {
     },
     classTipoGasto: function (idTipoGasto) {
       switch (idTipoGasto) {
-        case 1:
+        case 'REFEICAO':
           return 'restaurant'
-        case 2:
+        case 'LAZER':
           return 'local_activity'
-        case 3:
+        case 'CONTA':
           return 'payment'
-        case 4:
+        case 'MERCADO':
           return 'shopping_cart'
         default:
           return 'attach_money'
@@ -215,10 +216,16 @@ export default {
     carregaGastos: function (mes) {
       const self = this;
 
-      let despesaStorage = JSON.parse(localStorage.getItem(`despesas-${self.usuariologado.email}-${mes}`));
-
-      if (despesaStorage)
-        self.$refs.grafico.data = self.meses[mes].despesas = despesaStorage;
+      axios.get(`http://ws-save-app.herokuapp.com/despesa?usuario=${self.usuariologado.id}&mes=${self.meses[mes].mes.substring(0, 3).toUpperCase()}`)
+      .then((response) => {
+        if (response.data.length > 0) {
+          self.$refs.grafico.data = self.meses[mes].despesas = response.data.map((x) => { return {
+            descricao: x.descricao,
+            valor: x.valor,
+            idTipoGasto: x.tipoGasto
+          }});
+        }
+      });
     },
     limpaModalDespesa: function () {
       const self = this;
@@ -226,7 +233,7 @@ export default {
       self.despesaModel = {
         descricao: '',
         valor: 0.0,
-        idTipoGasto: 0
+        idTipoGasto: ''
       };
     },
     abreModalDespesa: function() {
@@ -238,9 +245,16 @@ export default {
       const self = this;
 
       self.meses[self.mesSelecionado].despesas.push(self.despesaModel);
-      localStorage.setItem(`despesas-${self.usuariologado.email}-${self.mesSelecionado}`, JSON.stringify(self.meses[self.mesSelecionado].despesas));
       
-      self.modalDespesa = false;
+      axios.post('http://ws-save-app.herokuapp.com/despesa', {
+        mes: self.meses[self.mesSelecionado].mes.substring(0, 3).toUpperCase(),
+        descricao: self.despesaModel.descricao,
+        valor: self.despesaModel.valor,
+        tipoGasto: self.despesaModel.idTipoGasto,
+        usuario: self.usuariologado
+      }).then(() => {
+        self.modalDespesa = false;
+      })      
     }
   }
 }
