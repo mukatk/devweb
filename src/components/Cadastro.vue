@@ -77,7 +77,7 @@
           label="Cidade"
           v-model="usuario.cidade"
           autocomplete
-          item-value="texo"
+          item-value="texto"
           item-text="texto">
         </v-select>
         <v-spacer class="mt-2"></v-spacer>
