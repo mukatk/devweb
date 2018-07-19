@@ -9,26 +9,26 @@ export default {
             labelsUp: [],
             lstTipoGasto: [
                 {
-                    id: 1,
-                    descricao: 'Refeição'
+                  id: 'REFEICAO',
+                  descricao: 'Refeição'
                 },
                 {
-                    id: 2,
-                    descricao: 'Lazer'
+                  id: 'LAZER',
+                  descricao: 'Lazer'
                 },
                 {
-                    id: 3,
-                    descricao: 'Conta'
+                  id: 'CONTA',
+                  descricao: 'Conta'
                 },
                 {
-                    id: 4,
-                    descricao: 'Mercado'
+                  id: 'MERCADO',
+                  descricao: 'Mercado'
                 },
                 {
-                    id: 5,
-                    descricao: 'Outros'
+                  id: 'OUTROS',
+                  descricao: 'Outros'
                 }
-            ]
+              ]
         }
     },
     watch: {
